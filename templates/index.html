@@ -1,0 +1,104 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Traductor de Jerga Técnica → Simple</title>
+  <link rel="stylesheet" href="/static/style.css" /> 
+</head>
+<body>
+  <main class="container">
+    <h1>Traductor de Jerga Técnica → Simple</h1>
+
+    <form id="form">
+      <label for="input">Pega aquí texto técnico o dicta con tu voz:</label>
+
+      <div class="text-area-wrapper">
+        <textarea id="input" name="input" rows="12" placeholder="Ej: 'Este microservicio implementa CQRS con un bus de eventos...'"></textarea>
+        <button type="button" id="micBtn" class="mic-btn">🎤</button>
+      </div>
+
+      <div class="actions">
+        <button id="btn" type="submit">Traducir / Explicar</button>
+      </div>
+    </form>
+
+    <section class="output">
+      <h2>Explicación en sencillo</h2>
+      <pre id="output" aria-live="polite">—</pre>
+    </section>
+  </main>
+
+  <footer class="creator">
+    <p>Creado con 💙 y 🌸 por <span class="firma">Ana Maria Patiño - Developer</span></p>
+  </footer>
+
+  <script>
+    const form = document.getElementById("form");
+    const input = document.getElementById("input");
+    const output = document.getElementById("output");
+    const btn = document.getElementById("btn");
+    const micBtn = document.getElementById("micBtn");
+
+    // ---- Enviar texto a Flask ----
+    form.addEventListener("submit", async (ev) => {
+      ev.preventDefault();
+      const text = input.value.trim();
+      if (!text) return;
+
+      btn.disabled = true;
+      output.textContent = "Traduciendo…";
+
+      try {
+        const res = await fetch("/explain", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ text })
+        });
+
+        const data = await res.json();
+        if (res.ok && data.explanation) {
+          output.textContent = data.explanation;
+        } else {
+          output.textContent = data.error || "No se pudo traducir.";
+        }
+      } catch (err) {
+        output.textContent = "Error de red o del servidor.";
+      } finally {
+        btn.disabled = false;
+      }
+    });
+
+    // ---- Dictado por voz ----
+    let recognition;
+    if ("webkitSpeechRecognition" in window) {
+      recognition = new webkitSpeechRecognition();
+      recognition.lang = "es-ES";   // español
+      recognition.continuous = false;
+      recognition.interimResults = false;
+
+      recognition.onstart = () => {
+        micBtn.classList.add("recording");
+        micBtn.textContent = "🔴";
+      };
+
+      recognition.onend = () => {
+        micBtn.classList.remove("recording");
+        micBtn.textContent = "🎤";
+      };
+
+      recognition.onresult = (event) => {
+        const transcript = event.results[0][0].transcript;
+        input.value += (input.value ? " " : "") + transcript;
+      };
+
+      micBtn.addEventListener("click", () => {
+        recognition.start();
+      });
+    } else {
+      micBtn.disabled = true;
+      micBtn.title = "El dictado por voz no es compatible en este navegador.";
+    }
+  </script>
+</body>
+</html>

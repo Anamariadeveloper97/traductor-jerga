@@ -1,0 +1,216 @@
+:root { 
+  font-family: system-ui, -apple-system, Segoe UI, Roboto, sans-serif; 
+  --rosa: #ff69b4;
+  --azul-fondo: #0b0e11;
+  --azul-card: #0f141a;
+  --azul-borde: #223;
+  --morado: #9b59b6;
+  --dorado: #f1c40f;
+}
+
+* { box-sizing: border-box; }
+
+body { 
+  margin: 0; 
+  color: #e8eef4; 
+  overflow-x: hidden;
+  background: linear-gradient(270deg, #0b0e11, #1a2230, #0b0e11, #2c1b3f, #0b0e11);
+  background-size: 400% 400%;
+  animation: gradientBG 20s ease infinite;
+}
+
+/* Fondo animado gradiente */
+@keyframes gradientBG {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+
+.container { 
+  max-width: 900px; 
+  margin: 40px auto; 
+  padding: 16px; 
+  position: relative;
+  z-index: 2;
+}
+
+/* ---- Fondo decorativo con corazones y rayos ---- */
+body::before,
+body::after {
+  content: "❤ ⚡ ❤ ⚡ ❤";
+  position: fixed;
+  top: -50px;
+  left: 0;
+  width: 100%;
+  font-size: 2rem;
+  text-align: center;
+  color: var(--morado);
+  opacity: 0.2;
+  animation: float 12s linear infinite;
+  z-index: 0;
+}
+
+body::after {
+  content: "⚡ ❤ ⚡ ❤ ⚡";
+  bottom: -50px;
+  top: auto;
+  color: var(--dorado);
+  animation: float2 15s linear infinite;
+}
+
+@keyframes float {
+  0% { transform: translateY(0); opacity: 0.3; }
+  50% { transform: translateY(50vh); opacity: 0.6; }
+  100% { transform: translateY(100vh); opacity: 0.2; }
+}
+
+@keyframes float2 {
+  0% { transform: translateY(0) rotate(0deg); opacity: 0.3; }
+  50% { transform: translateY(-50vh) rotate(180deg); opacity: 0.6; }
+  100% { transform: translateY(-100vh) rotate(360deg); opacity: 0.2; }
+}
+
+/* ---- Títulos ---- */
+h1 { 
+  font-size: 1.6rem; 
+  margin-bottom: 16px; 
+  color: var(--rosa); 
+  position: relative;
+  z-index: 2;
+}
+
+label { 
+  display: block; 
+  margin: 8px 0; 
+  color: #c7d2df; 
+}
+
+/* ---- Textarea ---- */
+.text-area-wrapper { 
+  position: relative; 
+  display: flex; 
+}
+.text-area-wrapper textarea {
+  flex: 1;
+}
+
+textarea {
+  width: 100%; 
+  padding: 12px; 
+  border-radius: 12px;
+  border: 1px solid var(--azul-borde); 
+  background: var(--azul-card); 
+  color: #e8eef4;
+  resize: vertical; 
+  outline: none;
+  z-index: 2;
+}
+textarea:focus { 
+  border-color: var(--rosa); 
+  box-shadow: 0 0 0 3px #ff69b422; 
+}
+
+/* ---- Botón Traducir ---- */
+.actions { 
+  margin: 12px 0 4px; 
+  display: flex; 
+  gap: 8px; 
+}
+button {
+  padding: 10px 16px; 
+  border: 0; 
+  border-radius: 999px; 
+  cursor: pointer;
+  background: var(--rosa); 
+  color: white; 
+  font-weight: 600;
+  transition: transform .2s ease, box-shadow .2s ease;
+  animation: pulse 2s infinite;
+  z-index: 2;
+}
+button:hover { 
+  transform: scale(1.08); 
+  box-shadow: 0 0 15px #ff69b477; 
+}
+button:disabled { 
+  opacity: .6; 
+  cursor: not-allowed; 
+  animation: none;
+}
+
+/* Animación pulse botón */
+@keyframes pulse {
+  0%   { transform: scale(1); box-shadow: 0 0 0 0 rgba(255,105,180,0.7); }
+  50%  { transform: scale(1.05); box-shadow: 0 0 20px 6px rgba(255,105,180,0.2); }
+  100% { transform: scale(1); box-shadow: 0 0 0 0 rgba(255,105,180,0.0); }
+}
+
+/* ---- Botón Micrófono ---- */
+.mic-btn {
+  position: absolute;
+  right: 10px;
+  bottom: 10px;
+  background: var(--morado);
+  color: white;
+  border: none;
+  border-radius: 50%;
+  padding: 8px 10px;
+  cursor: pointer;
+  font-size: 1.2rem;
+  transition: background .3s ease, transform .2s ease;
+}
+.mic-btn:hover {
+  background: var(--dorado);
+  transform: scale(1.1);
+}
+.mic-btn.recording {
+  background: red;
+}
+
+/* ---- Output ---- */
+.output { margin-top: 24px; }
+.output h2 { font-size: 1.2rem; margin-bottom: 8px; color: var(--rosa); }
+pre {
+  white-space: pre-wrap; 
+  word-wrap: break-word;
+  background: var(--azul-card); 
+  border: 1px solid var(--azul-borde); 
+  border-radius: 12px;
+  padding: 12px; 
+  min-height: 120px;
+  z-index: 2;
+  position: relative;
+}
+
+/* ---- Footer ---- */
+footer.creator {
+  margin-top: 40px;
+  padding: 16px;
+  text-align: center;
+  background: #1a2230;
+  border-top: 1px solid var(--azul-borde);
+  position: relative;
+  z-index: 2;
+}
+footer.creator p { margin: 0; font-size: 1rem; color: #e8eef4; }
+footer.creator .firma {
+  font-family: "Brush Script MT", "Comic Sans MS", cursive;
+  font-size: 1.2rem;
+  color: var(--rosa);
+}
+#speakBtn {
+  margin-top: 12px;
+  padding: 8px 14px;
+  border: none;
+  border-radius: 999px;
+  background: var(--dorado);
+  color: #0b0e11;
+  font-weight: 600;
+  cursor: pointer;
+  transition: transform .2s ease, box-shadow .2s ease;
+}
+
+#speakBtn:hover {
+  transform: scale(1.05);
+  box-shadow: 0 0 12px #f1c40f66;
+}
