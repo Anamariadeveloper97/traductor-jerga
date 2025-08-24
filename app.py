@@ -1,5 +1,5 @@
 # app.py
-from flask import Flask, render_template, request, jsonify  # servidor y utilidades web
+from flask import Flask, render_template, request, jsonify # servidor y utilidades web
 from openai import OpenAI                                 # SDK oficial de OpenAI
 from dotenv import load_dotenv                            # para leer .env (opcional)
 import os                                                 # utilidades del sistema
@@ -17,11 +17,11 @@ def system_prompt():
         "Evita palabreo; sé preciso y amable."
     )
 
-@app.get("/")                    # ruta principal: sirve la página
+@app.get("/")                                             # ruta principal: sirve la página
 def index():
     return render_template("index.html")
 
-@app.post("/explain")            # endpoint que procesa el texto
+@app.post("/explain")                                     # endpoint que procesa el texto
 def explain():
     data = request.get_json(silent=True) or {}            # lee JSON del fetch
     text = (data.get("text") or "").strip()               # texto del usuario

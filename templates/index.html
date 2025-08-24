@@ -8,31 +8,35 @@
 </head>
 <body>
   <main class="container">
-    <h1>Traductor de Jerga Técnica → Simple</h1>
+    <h1>Traductor de Jerga Técnica → Simple</h1> <!-- Titulo principal -->
 
     <form id="form">
-      <label for="input">Pega aquí texto técnico o dicta con tu voz:</label>
+      <label for="input">Pega aquí texto técnico o dicta con tu voz:</label> <!-- Form de input -->
 
-      <div class="text-area-wrapper">
+      <div class="text-area-wrapper">   <!-- Etiqueta de la Textarea -->
         <textarea id="input" name="input" rows="12" placeholder="Ej: 'Este microservicio implementa CQRS con un bus de eventos...'"></textarea>
         <button type="button" id="micBtn" class="mic-btn">🎤</button>
       </div>
 
-      <div class="actions">
+      <div class="actions">  <!-- Etiqueta de Submit -->
         <button id="btn" type="submit">Traducir / Explicar</button>
       </div>
     </form>
 
-    <section class="output">
+    <section class="output">  <!-- Sesion de explicacion -->
       <h2>Explicación en sencillo</h2>
       <pre id="output" aria-live="polite">—</pre>
     </section>
   </main>
 
+
+  <!-- Footer -->
   <footer class="creator">
     <p>Creado con 💙 y 🌸 por <span class="firma">Ana Maria Patiño - Developer</span></p>
   </footer>
+  
 
+  <!-- Scripts de la app -->
   <script>
     const form = document.getElementById("form");
     const input = document.getElementById("input");

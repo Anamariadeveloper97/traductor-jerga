@@ -198,19 +198,4 @@ footer.creator .firma {
   font-size: 1.2rem;
   color: var(--rosa);
 }
-#speakBtn {
-  margin-top: 12px;
-  padding: 8px 14px;
-  border: none;
-  border-radius: 999px;
-  background: var(--dorado);
-  color: #0b0e11;
-  font-weight: 600;
-  cursor: pointer;
-  transition: transform .2s ease, box-shadow .2s ease;
-}
 
-#speakBtn:hover {
-  transform: scale(1.05);
-  box-shadow: 0 0 12px #f1c40f66;
-}
